@@ -26,12 +26,17 @@ const Book = new Schema({
         type : String,
         required : true
     },
-    stock : Number,
-    coverUrl : String,
-    sellerId : ObjectId,
-    ratingAverage : Number,
-    createdAt : Date,
-    updateAt : Date
+    stock : {
+        type : Number,
+        default : 0
+    },
+    coverUrl : {
+        type : String   
+    },
+    ratings : {
+        type : Number,
+        default : 0
+    }
 
 }, {
     timestamps : true
