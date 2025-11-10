@@ -32,9 +32,7 @@ const Order = new Schema({
         enum : ["pending", "paid", "shipped", "delivered", "cancelled"],
         default : "pending"
     },
-    payment : {
-        type : ObjectId
-    }
+
 }, {
     timestamps : true
 })
