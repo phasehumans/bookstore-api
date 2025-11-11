@@ -18,6 +18,18 @@ const registerUser = async (req, res) => {
         return
     }
 
+    // unique user
+
+    const existUser = await UserModel.findOne({
+        email : email
+    })
+
+    if(existUser){
+        return res.json({
+            message : "email already exists, sign-up with another email"
+        })
+    }
+
     try {
         const hashPassword = await bcrypt.hash(password, 5)
         await UserModel.create({
