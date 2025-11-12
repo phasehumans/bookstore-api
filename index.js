@@ -9,6 +9,7 @@ const { paymentsRouter } = require('./routes/payments.route')
 const { orderRouter } = require('./routes/orders.route')
 
 app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
 app.use(cors())
 
 
