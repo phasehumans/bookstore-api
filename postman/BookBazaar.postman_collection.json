@@ -1,0 +1,502 @@
+{
+	"info": {
+		"_postman_id": "6e263cef-3a72-4c4b-beee-9857cbf57b22",
+		"name": "BookBazaar",
+		"description": "StartFragmentREST API for an online bookstore that allows users to browse, purchase, and review booksEndFragment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43250119"
+	},
+	"item": [
+		{
+			"name": "registerUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\" : \"Chaitanya\",\r\n    \"lastName\" : \"Sonawane\",\r\n    \"email\" : \"dev.chaitanya@gmail.com\",\r\n    \"password\" : \"Pass@123\",\r\n    \"address\" : \"indawe, 425408\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:3000/api/v1/auth/register",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "registerAdmin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\" : \"Admin 3 chetan\",\r\n    \"lastName\" : \"Sonawane\",\r\n    \"email\" : \"admin@gmail.com\",\r\n    \"password\" : \"Pass@123\",\r\n    \"address\" : \"indawe, 425408\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:3000/api/v1/auth/register/admin",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"register",
+						"admin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "loginUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \r\n    \"password\" : \"Pass@123\",\r\n    \"email\" : \"admin@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:3000/api/v1/auth/login",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getMe",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTE0YmFkZjIzODY5MzY1MjE2ZGQ2NTAiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NjI5NjYyNTJ9.EHeOdnd0itzwtjT6XXF3nnjbnE-Ytr294nSGgbPRVGA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:3000/api/v1/auth/me",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addBook",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTE0YmFkZjIzODY5MzY1MjE2ZGQ2NTAiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NjI5NjYyNTJ9.EHeOdnd0itzwtjT6XXF3nnjbnE-Ytr294nSGgbPRVGA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"The Lost Horizon\",\r\n  \"author\": \"James Hilton\",\r\n  \"price\": 350,\r\n  \"description\": \"A mysterious tale of Shangri-La.\",\r\n  \"category\": \"Fiction\",\r\n  \"stock\": 25,\r\n  \"coverUrl\": \"https://example.com/lost-horizon.jpg\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:3000/api/v1/books",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllBook",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTE0YmFkZjIzODY5MzY1MjE2ZGQ2NTAiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NjI5NjYyNTJ9.EHeOdnd0itzwtjT6XXF3nnjbnE-Ytr294nSGgbPRVGA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:3000/api/v1/books",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getBookbyId",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTE0YmFkZjIzODY5MzY1MjE2ZGQ2NTAiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NjI5NjYyNTJ9.EHeOdnd0itzwtjT6XXF3nnjbnE-Ytr294nSGgbPRVGA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:3000/api/v1/books/6914bc1223869365216dd655",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"books",
+						"6914bc1223869365216dd655"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getBookbyId Copy",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTE0YmFkZjIzODY5MzY1MjE2ZGQ2NTAiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NjI5NjYyNTJ9.EHeOdnd0itzwtjT6XXF3nnjbnE-Ytr294nSGgbPRVGA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\" : \"Richiee\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:3000/api/v1/books/6914bc1223869365216dd655",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"books",
+						"6914bc1223869365216dd655"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteBook",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTE0YmFkZjIzODY5MzY1MjE2ZGQ2NTAiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NjI5NjYyNTJ9.EHeOdnd0itzwtjT6XXF3nnjbnE-Ytr294nSGgbPRVGA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"stock\" : 101\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:3000/api/v1/books/6914bca623869365216dd65b",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"books",
+						"6914bca623869365216dd65b"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "placeOrder",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTE0YmFkZjIzODY5MzY1MjE2ZGQ2NTAiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NjI5NjYyNTJ9.EHeOdnd0itzwtjT6XXF3nnjbnE-Ytr294nSGgbPRVGA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"orderBy\": \"672f3cd9e5b1248d9adcb9b7\",\r\n  \"books\": [\r\n    {\r\n      \"book\": \"6914bc1223869365216dd655\",\r\n      \"quantity\": 2,\r\n      \"price\": 299\r\n    }\r\n  ],\r\n  \"totalAmount\": 598\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:3000/api/v1/orders",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllOrders",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTE0YmFkZjIzODY5MzY1MjE2ZGQ2NTAiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NjI5NjYyNTJ9.EHeOdnd0itzwtjT6XXF3nnjbnE-Ytr294nSGgbPRVGA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "127.0.0.1:3000/api/v1/orders",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getOrderDetailsbyId",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTE0YmFkZjIzODY5MzY1MjE2ZGQ2NTAiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NjI5NjYyNTJ9.EHeOdnd0itzwtjT6XXF3nnjbnE-Ytr294nSGgbPRVGA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "127.0.0.1:3000/api/v1/orders/6914bfe04c47dba4d39ac07d",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"orders",
+						"6914bfe04c47dba4d39ac07d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addReview",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTE0YmFkZjIzODY5MzY1MjE2ZGQ2NTAiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NjI5NjYyNTJ9.EHeOdnd0itzwtjT6XXF3nnjbnE-Ytr294nSGgbPRVGA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"ratings\": 4,\r\n  \"comment\": \"nice one, good \"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:3000/api/v1/review/6914bc4a23869365216dd657",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"review",
+						"6914bc4a23869365216dd657"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
