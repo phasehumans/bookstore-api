@@ -1,12 +1,13 @@
 const crypto = require("crypto");
 const { PaymentsModel } = require("../model/payments.model");
+const { UserModel } = require("../model/users.model");
+const { OrderModel } = require("../model/orders.model");
+const { sendPaymentSuccessEmail } = require("../utils/mail");
 
-// Create a mock Razorpay-like payment entry
 const createPayment = async (req, res) => {
   try {
     const { orderId, amount, paymentMethod, orderBy } = req.body;
 
-    // Required validations based on schema
     if (!orderId) {
       return res
         .status(400)
@@ -35,7 +36,6 @@ const createPayment = async (req, res) => {
       });
     }
 
-    // generate fake payment ID
     const fakePaymentId = `pay_${crypto.randomBytes(10).toString("hex")}`;
 
     const paymentDoc = new PaymentsModel({
@@ -83,7 +83,6 @@ const verifyPayment = async (req, res) => {
 
     const isValid = generated === razorpay_signature;
 
-    // update payment status
     const payment = await PaymentsModel.findOne({
       transactionId: razorpay_payment_id,
     });
@@ -91,6 +90,18 @@ const verifyPayment = async (req, res) => {
     if (payment) {
       payment.status = isValid ? "completed" : "failed";
       await payment.save();
+
+      if (isValid) {
+        const user = await UserModel.findById(payment.orderBy);
+        const order = await OrderModel.findById(payment.order);
+
+        if (user && order) {
+          await sendPaymentSuccessEmail(user.email, payment.order, payment.amount);
+          
+          order.status = "shipped";
+          await order.save();
+        }
+      }
     }
 
     if (!isValid) {

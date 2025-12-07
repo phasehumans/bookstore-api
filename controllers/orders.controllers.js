@@ -1,5 +1,7 @@
 const { BookModel } = require("../model/books.model");
 const { OrderModel } = require("../model/orders.model");
+const { UserModel } = require("../model/users.model");
+const { sendOrderConfirmationEmail, sendOrderStatusEmail } = require("../utils/mail");
 
 const placeOrder = async (req, res) => {
     const userid = req.userid
@@ -10,7 +12,6 @@ const placeOrder = async (req, res) => {
       return res.status(400).json({ message: "No books provided" });
     }
 
-    // Validate each book and calculate total
     let totalAmount = 0;
 
     for (const item of books) {
@@ -25,15 +26,24 @@ const placeOrder = async (req, res) => {
     }
 
     try {
-        await OrderModel.create({
+        const newOrder = await OrderModel.create({
             orderBy : userid,
             books : books,
             totalAmount : totalAmount,
             status : "pending"
         })
 
+        const user = await UserModel.findById(userid);
+        const orderDetails = {
+            totalAmount: totalAmount,
+            itemCount: books.length
+        };
+
+        await sendOrderConfirmationEmail(user.email, newOrder._id, orderDetails);
+
         res.json({
-            message : "order place"
+            message : "order place",
+            orderId: newOrder._id
         })
 
     } catch (error) {
@@ -90,8 +100,46 @@ const orderDetails = async (req, res) => {
 
 }
 
+const updateOrderStatus = async (req, res) => {
+    const orderId = req.params.id;
+    const { status } = req.body;
+
+    const validStatuses = ['pending', 'shipped', 'delivered', 'cancelled'];
+
+    if (!validStatuses.includes(status)) {
+        return res.status(400).json({ message: "Invalid status" });
+    }
+
+    try {
+        const order = await OrderModel.findByIdAndUpdate(
+            orderId,
+            { status },
+            { new: true }
+        );
+
+        if (!order) {
+            return res.status(404).json({ message: "Order not found" });
+        }
+
+        const user = await UserModel.findById(order.orderBy);
+        await sendOrderStatusEmail(user.email, orderId, status);
+
+        res.json({
+            message: "Order status updated",
+            order
+        });
+
+    } catch (error) {
+        res.json({
+            message: "server error",
+            error: error.message
+        });
+    }
+}
+
 module.exports = {
     placeOrder : placeOrder,
     listOrder : listOrder,
-    orderDetails : orderDetails
+    orderDetails : orderDetails,
+    updateOrderStatus : updateOrderStatus
 }

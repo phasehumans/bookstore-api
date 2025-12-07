@@ -2,6 +2,7 @@ const {UserModel} = require('../model/users.model')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const dotenv = require('dotenv')
+const { sendRegistrationEmail, sendPasswordResetEmail } = require('../utils/mail')
 dotenv.config()
 
 const registerUser = async (req, res) => {
@@ -17,8 +18,6 @@ const registerUser = async (req, res) => {
         })
         return
     }
-
-    // unique user
 
     const existUser = await UserModel.findOne({
         email : email
@@ -41,8 +40,11 @@ const registerUser = async (req, res) => {
             password : hashPassword
         })
 
+        const mailResult = await sendRegistrationEmail(email, firstName)
+
         res.json({
-            message : "sign-up completed"
+            message : "sign-up completed",
+            email_sent: mailResult.success
         })
     } catch (error) {
         res.json({
@@ -89,8 +91,11 @@ const registerAdmin = async(req, res) => {
             role : role
         })
 
+        const mailResult = await sendRegistrationEmail(email, firstName)
+
         res.json({
-            message : "sign-up completed"
+            message : "sign-up completed",
+            email_sent: mailResult.success
         })
     } catch (error) {
         res.json({
