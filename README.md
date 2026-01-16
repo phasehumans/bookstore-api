@@ -1,6 +1,6 @@
-﻿# Book Bazaar
+﻿# Book Store API
 
-Node.js/Express backend for an online bookstore with MongoDB, JWT auth, and payments.
+REST API for an online bookstore with MongoDB, JWT auth
 
 ## Project Structure
 
@@ -42,37 +42,4 @@ Book Bazaar/
 │
 └── postman/
     └── BookBazaar.postman_collection.json  # Complete API documentation
-```
-
-## Authentication Flow
-
-```
-User Login Request
-    │
-    ▼
-POST /api/auth/login
-    │
-    ▼
-auth.controllers.js
-    │ (Verify credentials)
-    ▼
-Generate JWT Token
-    │
-    ▼
-Send Token to Client
-    │
-    ▼
-Client stores token in localStorage
-    │
-    ▼
-Attach token to future requests (Authorization header)
-    │
-    ▼
-auth.middleware.js (verifyToken)
-    │ (Decode & validate JWT)
-    ▼
-Extract userId from token
-    │
-    ▼
-Proceed to controller or reject (401)
 ```
